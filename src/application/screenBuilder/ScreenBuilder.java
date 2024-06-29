@@ -2,6 +2,8 @@ package application.screenBuilder;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class ScreenBuilder {
     public static JFrame createFrame(String title, int width, int height){
@@ -49,7 +51,22 @@ public class ScreenBuilder {
     public static JScrollPane createInputField(String text, int x, int y, int width, int height){
         // Cоздание многострочных полей
         JTextArea textArea = new JTextArea();
-        textArea.setToolTipText(text);
+        textArea.setText(text); 
+
+        textArea.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (textArea.getText().equals(text)) {
+                    textArea.setText(""); 
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+
+            @Override
+            public void keyTyped(KeyEvent e) {}
+        });
         // Задаём стиль текста
         textArea.setFont(new Font("Inter", Font.BOLD, 18));
         // Создаём поле с возможностью прокручивания

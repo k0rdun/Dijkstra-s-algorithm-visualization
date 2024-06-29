@@ -24,6 +24,9 @@ public class Application {
             case KEYBOARD_INPUT:
                 scene = new KeyboardInputScene();
                 break;
+            case FILE_INPUT:
+                scene = new FileInputScene();
+                break;
             default:
                 break;
         }
@@ -36,6 +39,6 @@ public class Application {
 
     public void start() {
         frame.setVisible(true);
-        changeScreen(Screens.INPUT_CHOOSING);
+        changeScreen(Screens.START_SCREEN);
     }
 }
