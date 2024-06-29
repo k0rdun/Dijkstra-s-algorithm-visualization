@@ -1,9 +1,8 @@
 package application;
 
-import application.scenes.*;
-
 import javax.swing.*;
 
+import application.scenes.*;
 import static application.screenBuilder.ScreenBuilder.createFrame;
 
 public class Application {
@@ -14,22 +13,29 @@ public class Application {
     }
 
     public void changeScreen(Screens screen) {
-        frame.getContentPane().removeAll();
         Scene scene = null;
         switch(screen) {
-            case Screens.START_SCREEN:
+            case START_SCREEN:
                 scene = new StartScene();
                 break;
-            case Screens.INPUT_CHOOSING:
+            case INPUT_CHOOSING:
                 scene = new InputChoosingScene();
+                break;
+            case KEYBOARD_INPUT:
+                scene = new KeyboardInputScene();
+                break;
+            default:
+                break;
         }
         if(scene != null) {
-            scene.create(frame);
+            frame.getContentPane().removeAll();
+            scene.create(frame, this);
+            SwingUtilities.updateComponentTreeUI(frame);
         }
     }
 
     public void start() {
-        changeScreen(Screens.START_SCREEN);
         frame.setVisible(true);
+        changeScreen(Screens.INPUT_CHOOSING);
     }
 }

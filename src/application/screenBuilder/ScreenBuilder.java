@@ -1,7 +1,6 @@
 package application.screenBuilder;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import javax.swing.*;
 
 public class ScreenBuilder {
@@ -45,5 +44,23 @@ public class ScreenBuilder {
         button.add(Box.createHorizontalGlue());
 
         return button;
+    }
+
+    public static JScrollPane createInputField(String text, int x, int y, int width, int height){
+        // Cоздание многострочных полей
+        JTextArea textArea = new JTextArea();
+        textArea.setToolTipText(text);
+        // Задаём стиль текста
+        textArea.setFont(new Font("Inter", Font.BOLD, 18));
+        // Создаём поле с возможностью прокручивания
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        // Задаём расположение и размеры
+        scrollPane.setBounds(x, y, width, height);
+        // Задаём цвет заднего фона
+        scrollPane.setBackground(Color.WHITE);
+        // Задаём границу поля
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        return scrollPane;
     }
 }
