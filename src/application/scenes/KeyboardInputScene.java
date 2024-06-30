@@ -60,7 +60,7 @@ public class KeyboardInputScene extends Scene {
                 for(int j = 0; j < n; j++){
                     current = Integer.parseInt(line[j]);
                     graph[i][j] = current;
-                    if(current < 0) { return null; }
+                    if((current < 0) || (j == i && graph[i][j] != 0)) { return null; }
                 }
             }
             //System.out.println(Arrays.deepToString(graph));
