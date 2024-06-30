@@ -6,8 +6,18 @@ import java.awt.*;
 import javax.swing.*;
 
 import application.Application;
+import application.dijkstra.Dijkstra;
+import application.dijkstra.DijkstraVisualizer;
 
 public class AlghorimtVisualisationScene extends Scene {
+    private final int n;
+    private final int[][] matrix;
+
+    public AlghorimtVisualisationScene(int n, int[][] matrix) {
+        this.n = n;
+        this.matrix = matrix;
+    }
+
     @Override
     public void create(JFrame frame, Application app) {
         JLabel label_one = new JLabel("Граф");
@@ -28,5 +38,12 @@ public class AlghorimtVisualisationScene extends Scene {
         // Создаём кнопку
         JButton button = createButton("Следующий шаг", 20, 299, 466, 202, 84);
         frame.getContentPane().add(button);
+
+        DijkstraVisualizer visualizer = new DijkstraVisualizer();
+        Dijkstra algorithm = new Dijkstra(n, matrix, 0, visualizer);
+
+        button.addActionListener(e -> {
+            algorithm.nextStep();
+        });
     }
 }

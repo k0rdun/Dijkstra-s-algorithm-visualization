@@ -54,10 +54,13 @@ public class ScreenBuilder {
         textArea.setText(text); 
 
         textArea.addKeyListener(new KeyListener() {
+            private boolean once = true;
+
             @Override
             public void keyPressed(KeyEvent e) {
-                if (textArea.getText().equals(text)) {
-                    textArea.setText(""); 
+                if (textArea.getText().equals(text) && once) {
+                    textArea.setText("");
+                    once = false;
                 }
             }
 
@@ -67,6 +70,7 @@ public class ScreenBuilder {
             @Override
             public void keyTyped(KeyEvent e) {}
         });
+
         // Задаём стиль текста
         textArea.setFont(new Font("Inter", Font.BOLD, 18));
         // Создаём поле с возможностью прокручивания

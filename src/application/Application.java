@@ -30,9 +30,6 @@ public class Application {
             case GRAPHICAL_INPUT:
                 scene = new GraphicInputScene();
                 break;
-            case ALGORITHM_VISUALISATION:
-                scene = new AlghorimtVisualisationScene();
-                break;
             default:
                 break;
         }
@@ -46,5 +43,20 @@ public class Application {
     public void start() {
         frame.setVisible(true);
         changeScreen(Screens.START_SCREEN);
+    }
+
+    public void graphicInput(int n, int[][] graph) {
+        GraphicInputScene scene = new GraphicInputScene();
+        frame.getContentPane().removeAll();
+        scene.setGraph(n, graph);
+        scene.create(frame, this);
+        SwingUtilities.updateComponentTreeUI(frame);
+    }
+
+    public void visualizeAlgorithm(int n, int[][] matrix) {
+        AlghorimtVisualisationScene scene = new AlghorimtVisualisationScene(n, matrix);
+        frame.getContentPane().removeAll();
+        scene.create(frame, this);
+        SwingUtilities.updateComponentTreeUI(frame);
     }
 }
