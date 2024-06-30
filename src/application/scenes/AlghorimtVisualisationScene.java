@@ -4,6 +4,8 @@ import static application.screenBuilder.ScreenBuilder.createButton;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import application.Application;
 import application.dijkstra.Dijkstra;
@@ -51,13 +53,28 @@ public class AlghorimtVisualisationScene extends Scene {
         panel_info.setBackground(Color.WHITE);
 
         frame.getContentPane().add(panel_info);
+        
+        JTable table = new JTable(3, 1);
+        table.setTableHeader(null);
+        table.setEnabled(false);
+        table.setRowHeight(44);
+        table.setBackground(Color.WHITE);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getModel().setValueAt("№ вершины", 0, 0); 
+        table.getModel().setValueAt("Расстояние", 1, 0);
+        table.getModel().setValueAt("Родитель", 2, 0);
 
-        JPanel panel_table = new JPanel();
-        panel_table.setBounds(50, 304, 700, 142);
-        panel_table.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-        panel_table.setBackground(Color.WHITE);
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 
-        frame.getContentPane().add(panel_table);
+        for (int i = 0; i < n; i++) {
+            tableModel.addColumn("Column " + i);
+        }
+                
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(50, 304, 700, 142);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        scrollPane.setBackground(Color.WHITE);
+        frame.getContentPane().add(scrollPane);
 
         // Создаём кнопку
         JButton button = createButton("Следующий шаг", 20, 299, 466, 202, 84);
