@@ -1,3 +1,5 @@
+package application.dijkstra;
+
 import java.util.Arrays;
 
 public class DijkstraVisualizer {

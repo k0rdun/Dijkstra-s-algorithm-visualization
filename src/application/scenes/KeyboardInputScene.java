@@ -1,6 +1,7 @@
 package application.scenes;
 
 import application.Application;
+import application.Screens;
 
 import java.awt.*;
 import javax.swing.*;
@@ -18,6 +19,9 @@ public class KeyboardInputScene extends Scene {
         // Создаём кнопку
         JButton button = createButton("Графический ввод", 20, 290, 466, 220, 84);
         frame.getContentPane().add(button);
+        button.addActionListener(e ->  {
+            app.changeScreen(Screens.GRAPHICAL_INPUT);
+        });
 
         // Создаём поле для ввода
         JScrollPane inputField = createInputField(

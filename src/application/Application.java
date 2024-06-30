@@ -27,6 +27,12 @@ public class Application {
             case FILE_INPUT:
                 scene = new FileInputScene();
                 break;
+            case GRAPHICAL_INPUT:
+                scene = new GraphicInputScene();
+                break;
+            case ALGORITHM_VISUALISATION:
+                scene = new AlghorimtVisualisationScene();
+                break;
             default:
                 break;
         }
