@@ -6,7 +6,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import application.Application;
-import application.Screens;
 import application.scenes.graph.Graph;
 
 public class GraphicInputScene extends Scene {
@@ -30,7 +29,6 @@ public class GraphicInputScene extends Scene {
         // Визуализируем существующий граф
         Graph graph = new Graph(n, matrix, 350, 198, 150);
         graph.setVertexRadius(8);
-        graph.setMultiplier(0.5);
         graph.setBounds(50, 50, 700, 396);
         graph.setBackground(Color.WHITE);
         graph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));

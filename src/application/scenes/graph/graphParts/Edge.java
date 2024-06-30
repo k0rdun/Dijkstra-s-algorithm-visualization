@@ -1,7 +1,5 @@
 package application.scenes.graph.graphParts;
 
-import java.awt.*;
-
 public class Edge {
     private final Vertex startVertex;
     private final Vertex endVertex;

@@ -3,8 +3,6 @@ package application.scenes;
 import application.Application;
 
 import java.awt.*;
-import java.awt.im.InputContext;
-import java.util.Arrays;
 import javax.swing.*;
 
 import static application.screenBuilder.ScreenBuilder.*;
@@ -62,6 +60,7 @@ public class KeyboardInputScene extends Scene {
                 for(int j = 0; j < n; j++){
                     current = Integer.parseInt(line[j]);
                     graph[i][j] = current;
+                    if(current < 0) { return null; }
                 }
             }
             //System.out.println(Arrays.deepToString(graph));

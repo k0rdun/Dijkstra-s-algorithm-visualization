@@ -1,7 +1,6 @@
 package application.scenes;
 
 import application.Application;
-import application.Screens;
 
 import java.awt.*;
 import java.io.*;

@@ -1,7 +1,5 @@
 package application.scenes.graph.graphParts;
 
-import java.awt.*;
-
 public class Vertex {
     private int x;
     private int y;
