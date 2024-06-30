@@ -64,6 +64,7 @@ public class Graph extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(2.5F));
         for(Vertex vertex : vertexes) {
+            // Отрисовываем вершины
             g2d.fillOval(
                     (int) ((vertex.getX() - vertexRadius) * multiplier),
                     (int) ((vertex.getY() - vertexRadius) * multiplier),
@@ -71,14 +72,39 @@ public class Graph extends JPanel {
                     (int) (2 * vertexRadius * multiplier)
             );
         }
+        int x1, y1, x2, y2, d, h;
         for(Edge edge : edges) {
-            g2d.drawLine(
-                    (int) (edge.getStartVertex().getX() * multiplier),
-                    (int) (edge.getStartVertex().getY() * multiplier),
-                    (int) (edge.getEndVertex().getX() * multiplier),
-                    (int) (edge.getEndVertex().getY() * multiplier)
-            );
+            // Получаем координаты рёбер
+            x1 = (int) (edge.getStartVertex().getX() * multiplier);
+            y1 = (int) (edge.getStartVertex().getY() * multiplier);
+            x2 = (int) (edge.getEndVertex().getX() * multiplier);
+            y2 = (int) (edge.getEndVertex().getY() * multiplier);
+            // Отрисовываем ребро
+            g2d.drawLine(x1, y1, x2, y2);
+            // Отрисовываем направление ребра
+            d = (int) (vertexRadius * 2 * multiplier * 1.5);
+            h = (int) (vertexRadius / 2 * multiplier * 1.5);
+            // Расстояния между точками
+            int dx = x2 - x1, dy = y2 - y1;
+            // Длина стрелки
+            double D = Math.sqrt(dx * dx + dy * dy);
+            double xm = D - d, xn = xm, ym = h, yn = -h, x;
+            double sin = dy / D, cos = dx / D;
 
+            x = xm * cos - ym * sin + x1;
+            ym = xm * sin + ym * cos + y1;
+            xm = x;
+
+            x = xn * cos - yn * sin + x1;
+            yn = xn * sin + yn * cos + y1;
+            xn = x;
+
+            // Отрисовываем направление ребра
+            g2d.fillPolygon(
+                    new int[] {x2, (int) xm, (int) xn},
+                    new int[] {y2, (int) ym, (int) yn},
+                    3
+            );
         }
     }
 }
