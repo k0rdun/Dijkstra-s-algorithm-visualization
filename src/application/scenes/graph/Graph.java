@@ -53,10 +53,12 @@ public class Graph extends JPanel {
         return graph;
     }
 
-    public void setStartVertex(int startVertex) {
+    public boolean setStartVertex(int startVertex) {
         if(startVertex >= 0 && startVertex < vertexes.size()) {
             this.startVertex = startVertex;
+            return true;
         }
+        return false;
     }
 
     public int getStartVertex() {
@@ -247,15 +249,6 @@ public class Graph extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        for(Vertex vertex : vertexes) {
-            // Отрисовываем вершины
-            g2d.fillOval(
-                    (int) ((vertex.getX() - vertexRadius) * multiplier),
-                    (int) ((vertex.getY() - vertexRadius) * multiplier),
-                    (int) (2 * vertexRadius * multiplier),
-                    (int) (2 * vertexRadius * multiplier)
-            );
-        }
         g2d.setStroke(new BasicStroke(2.0F));
         // Отрисовываем обозначение выбранной вершины
         if(selectedVertex != null) {
@@ -300,6 +293,22 @@ public class Graph extends JPanel {
                     new int[] {x2, (int) xm, (int) xn},
                     new int[] {y2, (int) ym, (int) yn},
                     3
+            );
+        }
+        g.setFont(new Font("Inter", Font.BOLD, 12));
+        for(Vertex vertex : vertexes) {
+            // Отрисовываем вершины
+            g2d.fillOval(
+                    (int) ((vertex.getX() - vertexRadius) * multiplier),
+                    (int) ((vertex.getY() - vertexRadius) * multiplier),
+                    (int) (2 * vertexRadius * multiplier),
+                    (int) (2 * vertexRadius * multiplier)
+            );
+            // Нумерация вершин
+            g2d.drawString(
+                    Integer.toString(vertex.getNumber()),
+                    (int) ((vertex.getX() - vertexRadius) * multiplier),
+                    (int) ((vertex.getY() - vertexRadius) * multiplier)
             );
         }
     }
