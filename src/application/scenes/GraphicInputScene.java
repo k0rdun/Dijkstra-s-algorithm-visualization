@@ -3,8 +3,11 @@ package application.scenes;
 import static application.screenBuilder.ScreenBuilder.createButton;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 import javax.swing.*;
 
 import application.Application;
@@ -30,7 +33,7 @@ public class GraphicInputScene extends Scene {
         graph.setBounds(50, 50, 700, 396);
         graph.setBackground(Color.WHITE);
         graph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-
+        // Добавляем возможность изменения графа
         MouseListener graphChanger = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -59,11 +62,27 @@ public class GraphicInputScene extends Scene {
 
         frame.getContentPane().add(graph);
 
+        // Создаём поле ввода значения стартовой вершины
+        JTextPane startVertexEditor = new JTextPane();
+        startVertexEditor.setFont(new Font("Inter", Font.ITALIC + Font.BOLD, 12));
+        startVertexEditor.setBounds(50, 20, 100, 25);
+        startVertexEditor.setBackground(Color.WHITE);
+        startVertexEditor.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        startVertexEditor.setToolTipText("Номер стартовой вершины");
+        startVertexEditor.setText(Integer.toString(graph.getStartVertex()));
+        frame.getContentPane().add(startVertexEditor);
+
         // Создаём кнопку
         JButton button = createButton("Визуализация алгоритма", 20, 258, 466, 288, 84);
         button.addActionListener(e ->  {
-            app.visualizeAlgorithm(graph);
-            graph.removeMouseListener(graphChanger);
+            try {
+                String input = startVertexEditor.getText();
+                int startVertexNumber = Integer.parseInt(input);
+                if (graph.getGraphSize() > 0 && graph.setStartVertex(startVertexNumber)) {
+                    app.visualizeAlgorithm(graph);
+                    graph.removeMouseListener(graphChanger);
+                }
+            } catch(NumberFormatException exc) {}
         });
         frame.getContentPane().add(button);
     }

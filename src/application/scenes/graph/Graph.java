@@ -65,6 +65,10 @@ public class Graph extends JPanel {
         return startVertex;
     }
 
+    public int getGraphSize() {
+        return vertexes.size();
+    }
+
     public void setVertexRadius(int radius) {
         vertexRadius = radius;
     }
