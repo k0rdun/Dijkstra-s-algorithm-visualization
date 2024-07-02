@@ -31,19 +31,19 @@ public class FileInputScene extends KeyboardInputScene {
             // Получаем JTextArea из JScrollPane
             JTextArea inputText = (JTextArea) inputField.getViewport().getView();
             // Получаем граф из поля ввода
-            int[][] graph = checkFileInput(inputText.getText());
-            if(graph == null) {
+            Pair pair = checkFileInput(inputText.getText());
+            if(pair == null) {
                 // Если был некорректный ввод, то выводим сообщение об ошибке
                 frame.getContentPane().add(errorMessage());
                 SwingUtilities.updateComponentTreeUI(frame);
             } else {
                 // Если удалось считать корректный граф, то переходим к графическому вводу
-                app.graphicInput(graph.length, graph);
+                app.graphicInput(pair.graph.length, pair.startVertex, pair.graph);
             }
         });
     }
 
-    public int[][] checkFileInput(String input) {
+    public Pair checkFileInput(String input) {
         try(BufferedReader br = new BufferedReader(new FileReader(input))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();

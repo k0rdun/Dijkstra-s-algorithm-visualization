@@ -15,10 +15,12 @@ import application.scenes.graph.Graph;
 public class AlghorimtVisualisationScene extends Scene {
     private final int n;
     private final int[][] matrix;
+    private Graph graph;
 
-    public AlghorimtVisualisationScene(int n, int[][] matrix) {
-        this.n = n;
-        this.matrix = matrix;
+    public AlghorimtVisualisationScene(Graph graph) {
+        this.graph = graph;
+        matrix = graph.getGraph();
+        n = matrix.length;
     }
 
     @Override
@@ -38,12 +40,9 @@ public class AlghorimtVisualisationScene extends Scene {
         label_three.setBounds(50, 286, 150, 18);
         frame.getContentPane().add(label_three);
 
-        Graph graph = new Graph(n, matrix, 350, 198, 150);
-        graph.setVertexRadius(8);
+
         graph.setMultiplier(0.5);
         graph.setBounds(50, 50, 350, 208);
-        graph.setBackground(Color.WHITE);
-        graph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
         frame.getContentPane().add(graph);
 
@@ -81,7 +80,7 @@ public class AlghorimtVisualisationScene extends Scene {
         frame.getContentPane().add(button);
 
         DijkstraVisualizer visualizer = new DijkstraVisualizer();
-        Dijkstra algorithm = new Dijkstra(n, matrix, 0, visualizer);
+        Dijkstra algorithm = new Dijkstra(n, matrix, graph.getStartVertex(), visualizer);
 
         button.addActionListener(e -> {
             algorithm.nextStep();

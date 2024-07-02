@@ -3,6 +3,8 @@ package application;
 import javax.swing.*;
 
 import application.scenes.*;
+import application.scenes.graph.Graph;
+
 import static application.screenBuilder.ScreenBuilder.createFrame;
 
 public class Application {
@@ -28,6 +30,7 @@ public class Application {
                 scene = new FileInputScene();
                 break;
             case GRAPHICAL_INPUT:
+                System.out.println("Графический ввод");
                 scene = new GraphicInputScene();
                 break;
             default:
@@ -45,16 +48,16 @@ public class Application {
         changeScreen(Screens.START_SCREEN);
     }
 
-    public void graphicInput(int n, int[][] graph) {
+    public void graphicInput(int n, int startVertex, int[][] graph) {
         GraphicInputScene scene = new GraphicInputScene();
         frame.getContentPane().removeAll();
-        scene.setGraph(n, graph);
+        scene.setGraph(n, startVertex, graph);
         scene.create(frame, this);
         SwingUtilities.updateComponentTreeUI(frame);
     }
 
-    public void visualizeAlgorithm(int n, int[][] matrix) {
-        AlghorimtVisualisationScene scene = new AlghorimtVisualisationScene(n, matrix);
+    public void visualizeAlgorithm(Graph graph) {
+        AlghorimtVisualisationScene scene = new AlghorimtVisualisationScene(graph);
         frame.getContentPane().removeAll();
         scene.create(frame, this);
         SwingUtilities.updateComponentTreeUI(frame);

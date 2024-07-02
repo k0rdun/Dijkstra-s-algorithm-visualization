@@ -3,10 +3,12 @@ package application.scenes.graph.graphParts;
 public class Edge {
     private final Vertex startVertex;
     private final Vertex endVertex;
+    private final int weight;
 
-    public Edge(Vertex start, Vertex end) {
+    public Edge(Vertex start, Vertex end, int weight) {
         startVertex = start;
         endVertex = end;
+        this.weight = weight;
     }
 
     public Vertex getStartVertex() {
@@ -15,5 +17,9 @@ public class Edge {
 
     public Vertex getEndVertex() {
         return endVertex;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }

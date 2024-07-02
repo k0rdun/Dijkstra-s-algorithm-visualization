@@ -30,23 +30,31 @@ public class KeyboardInputScene extends Scene {
             // Получаем JTextArea из JScrollPane
             JTextArea inputText = (JTextArea) inputField.getViewport().getView();
             // Получаем граф из поля ввода
-            int[][] graph = checkTextInput(inputText.getText());
-            if(graph == null) {
+            Pair pair = checkTextInput(inputText.getText());
+            if(pair == null) {
                 // Если был некорректный ввод, то выводим сообщение об ошибке
                 frame.getContentPane().add(errorMessage());
                 SwingUtilities.updateComponentTreeUI(frame);
             } else {
                 // Если удалось считать корректный граф, то переходим к графическому вводу
-                app.graphicInput(graph.length, graph);
+                app.graphicInput(pair.graph.length, pair.startVertex, pair.graph);
             }
         });
     }
 
-    public int[][] checkTextInput(String inputText) {
+    public class Pair {
+        int startVertex;
+        int[][] graph;
+    }
+
+    public Pair checkTextInput(String inputText) {
         String[] input = inputText.split("\n");
         try {
-            // Считываем размер графа
-            int n = Integer.parseInt(input[0]);
+            // Считываем размер графа и стартовую вершину
+            String[] info = input[0].split(" ");
+            int n = Integer.parseInt(info[0]);
+            Pair pair = new Pair();
+            pair.startVertex = Integer.parseInt(info[1]);
             // Проверяем корректность входных данных
             if(n > 25 || n <= 0 || input.length != n + 1) { return null; }
             // Создаём массив для хранения матрицы смежности графа
@@ -64,7 +72,8 @@ public class KeyboardInputScene extends Scene {
                 }
             }
             //System.out.println(Arrays.deepToString(graph));
-            return graph;
+            pair.graph = graph;
+            return pair;
         } catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return null;
         }

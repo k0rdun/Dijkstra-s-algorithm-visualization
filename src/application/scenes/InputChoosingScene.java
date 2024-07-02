@@ -30,7 +30,8 @@ public class InputChoosingScene extends Scene {
 
         JButton button_graphic = createButton("Графический", 20, 600, 342, 150, 84);      
         frame.getContentPane().add(button_graphic);
-
-        
+        button_graphic.addActionListener(e ->  {
+            app.changeScreen(Screens.GRAPHICAL_INPUT);
+        });
     }
 }
