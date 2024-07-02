@@ -299,10 +299,18 @@ public class Graph extends JPanel {
                     3
             );
         }
-        g.setFont(new Font("Inter", Font.BOLD, 12));
+        g.setFont(new Font("Inter", Font.BOLD, (int) (12 * multiplier)));
         for(Vertex vertex : vertexes) {
-            // Отрисовываем вершины
+            g2d.setColor(Color.WHITE);
             g2d.fillOval(
+                    (int) ((vertex.getX() - vertexRadius) * multiplier),
+                    (int) ((vertex.getY() - vertexRadius) * multiplier),
+                    (int) (2 * vertexRadius * multiplier),
+                    (int) (2 * vertexRadius * multiplier)
+            );
+            // Отрисовываем вершины
+            g2d.setColor(Color.BLACK);
+            g2d.drawOval(
                     (int) ((vertex.getX() - vertexRadius) * multiplier),
                     (int) ((vertex.getY() - vertexRadius) * multiplier),
                     (int) (2 * vertexRadius * multiplier),
@@ -311,8 +319,8 @@ public class Graph extends JPanel {
             // Нумерация вершин
             g2d.drawString(
                     Integer.toString(vertex.getNumber()),
-                    (int) ((vertex.getX() - vertexRadius) * multiplier),
-                    (int) ((vertex.getY() - vertexRadius) * multiplier)
+                    (int) ((vertex.getX() - g2d.getFontMetrics().stringWidth(Integer.toString(vertex.getNumber())) / 2) * multiplier - 1.5),
+                    (int) ((vertex.getY() + 5) * multiplier)
             );
         }
     }
