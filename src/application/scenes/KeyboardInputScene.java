@@ -17,7 +17,7 @@ public class KeyboardInputScene extends Scene {
 
         // Создаём поле для ввода
         JScrollPane inputField = createInputField(
-                "Введите размер и матрицу смежности графа",
+                "Введите размер, стартовую вершину и матрицу смежности графа",
                 50, 50, 700, 396
         );
         frame.getContentPane().add(inputField);
