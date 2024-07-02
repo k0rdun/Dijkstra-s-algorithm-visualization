@@ -29,7 +29,7 @@ public class DijkstraVisualizer {
     }
 
     public void printInfo(int vertex){
-        textArea.setText("Шаг №" + step++);
+        textArea.setText(textArea.getText() + "\nШаг №" + step++);
         textArea.setText(textArea.getText() + "\nВершина с min расстоянием - " + vertex);
     }
 
@@ -46,6 +46,6 @@ public class DijkstraVisualizer {
     }
 
     public void printEnd(){
-        textArea.setText("Работа завершена!");
+        textArea.setText(textArea.getText() + "\nРабота завершена!");
     }
 }

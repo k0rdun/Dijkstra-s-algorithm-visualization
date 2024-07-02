@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import application.Application;
+import application.Screens;
 import application.dijkstra.Dijkstra;
 import application.dijkstra.DijkstraVisualizer;
 import application.scenes.graph.Graph;
@@ -90,11 +91,18 @@ public class AlghorimtVisualisationScene extends Scene {
         button.addActionListener(e -> {
             if (algorithm.nextStep()) {
                 frame.remove(button);
-                JButton button_exit = createButton("Выйти", 20, 299, 466, 202, 84);
+                JButton button_start = createButton("Сначала", 20, 194, 466, 144, 84);
+                frame.getContentPane().add(button_start);
+                SwingUtilities.updateComponentTreeUI(frame);
+                button_start.addActionListener(a -> {
+                    app.changeScreen(Screens.START_SCREEN);
+                });
+
+                JButton button_exit = createButton("Выйти", 20, 462, 466, 144, 84);
                 frame.getContentPane().add(button_exit);
                 SwingUtilities.updateComponentTreeUI(frame);
                 button_exit.addActionListener(a -> {
-                    frame.dispose();;
+                    frame.dispose();
                 });
             }
         });
