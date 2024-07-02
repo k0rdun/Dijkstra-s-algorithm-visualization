@@ -5,7 +5,6 @@ import static application.screenBuilder.ScreenBuilder.createButton;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import application.Application;
 import application.dijkstra.Dijkstra;
@@ -47,11 +46,15 @@ public class AlghorimtVisualisationScene extends Scene {
 
         frame.getContentPane().add(graph);
 
-        JPanel panel_info = new JPanel();
-        panel_info.setBounds(462, 50, 288, 208);
-        panel_info.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-        panel_info.setBackground(Color.WHITE);
+        JTextArea textArea = new JTextArea();
+        textArea.setBounds(462, 50, 288, 208);
+        textArea.setBackground(Color.WHITE);
+        textArea.setEnabled(false);
 
+        JScrollPane panel_info = new JScrollPane(textArea);
+        panel_info.setBounds(462, 50, 288, 208);
+        panel_info.setBackground(Color.WHITE);
+        panel_info.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         frame.getContentPane().add(panel_info);
         
         JTable table = new JTable(3, 1);
@@ -80,7 +83,7 @@ public class AlghorimtVisualisationScene extends Scene {
         JButton button = createButton("Следующий шаг", 20, 299, 466, 202, 84);
         frame.getContentPane().add(button);
 
-        DijkstraVisualizer visualizer = new DijkstraVisualizer();
+        DijkstraVisualizer visualizer = new DijkstraVisualizer(table, textArea);
         Dijkstra algorithm = new Dijkstra(n, matrix, graph.getStartVertex(), visualizer);
 
         button.addActionListener(e -> {
