@@ -52,9 +52,11 @@ public class KeyboardInputScene extends Scene {
         try {
             // Считываем размер графа и стартовую вершину
             String[] info = input[0].split(" ");
+            if(info.length != 2) { return null; }
             int n = Integer.parseInt(info[0]);
             Pair pair = new Pair();
             pair.startVertex = Integer.parseInt(info[1]);
+            if(pair.startVertex < 0 || pair.startVertex >= n) { return null; }
             // Проверяем корректность входных данных
             if(n > 25 || n <= 0 || input.length != n + 1) { return null; }
             // Создаём массив для хранения матрицы смежности графа
