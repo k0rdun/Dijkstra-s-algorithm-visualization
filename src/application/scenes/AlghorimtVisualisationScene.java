@@ -5,6 +5,7 @@ import static application.screenBuilder.ScreenBuilder.createButton;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import application.Application;
 import application.dijkstra.Dijkstra;
@@ -47,9 +48,9 @@ public class AlghorimtVisualisationScene extends Scene {
         frame.getContentPane().add(graph);
 
         JTextArea textArea = new JTextArea();
-        textArea.setBounds(462, 50, 288, 208);
-        textArea.setBackground(Color.WHITE);
+        textArea.setFont(new Font("Inter", Font.BOLD, 15));
         textArea.setEnabled(false);
+        textArea.setDisabledTextColor(Color.BLACK);
 
         JScrollPane panel_info = new JScrollPane(textArea);
         panel_info.setBounds(462, 50, 288, 208);

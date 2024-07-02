@@ -64,7 +64,7 @@ public class GraphicInputScene extends Scene {
 
         // Создаём поле ввода значения стартовой вершины
         JTextPane startVertexEditor = new JTextPane();
-        startVertexEditor.setFont(new Font("Inter", Font.ITALIC + Font.BOLD, 12));
+        startVertexEditor.setFont(new Font("Inter", Font.BOLD, 12));
         startVertexEditor.setBounds(50, 20, 100, 25);
         startVertexEditor.setBackground(Color.WHITE);
         startVertexEditor.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
