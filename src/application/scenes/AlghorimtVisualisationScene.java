@@ -42,6 +42,7 @@ public class AlghorimtVisualisationScene extends Scene {
 
 
         graph.setMultiplier(0.5);
+        graph.resetChangesVisualization();
         graph.setBounds(50, 50, 350, 208);
 
         frame.getContentPane().add(graph);

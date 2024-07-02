@@ -36,6 +36,15 @@ public class Graph extends JPanel {
         }
     }
 
+    public void resetChangesVisualization() {
+        selectedVertex = null;
+        if(block) {
+            this.remove(label);
+            this.remove(textEditorScroll);
+            block = false;
+        }
+    }
+
     public int[][] getGraph() {
         int[][] graph = new int[vertexes.size()][vertexes.size()];
         for(Edge edge : edges) {
@@ -83,6 +92,9 @@ public class Graph extends JPanel {
         }
     }
 
+    private JLabel label;
+    private JScrollPane textEditorScroll;
+
     public void askEdgeWeight(int number1, int number2) {
         // Проверяем, существует ли уже ребро инцидентное данным вершинам
         for(Edge edge : edges) {
@@ -93,11 +105,16 @@ public class Graph extends JPanel {
         }
 
         block = true;
+        // Подсказка
+        label = new JLabel("Введите вес ребра");
+        label.setFont(new Font("Inter", Font.ITALIC + Font.BOLD, 12));
+        label.setBounds(25, 10, 150, 15);
+        this.add(label);
         // Создаём поле для ввода тектса
         JTextPane textEditor = new JTextPane();
         textEditor.setFont(new Font("Inter", Font.ITALIC + Font.BOLD, 12));
         // Добавляем ему возможность прокручивать и задаём то, как оно будет выглядеть
-        JScrollPane textEditorScroll = new JScrollPane(textEditor);
+        textEditorScroll = new JScrollPane(textEditor);
         textEditorScroll.setBackground(Color.WHITE);
         textEditorScroll.setBounds(25, 25, 150, 50);
         textEditorScroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
@@ -111,6 +128,7 @@ public class Graph extends JPanel {
                     System.out.println("Вес ребра введён");
                     block = false;
                     graph.remove(textEditorScroll);
+                    graph.remove(label);
                     String input = textEditor.getText();
                     try {
                         int weight = Integer.parseInt(input);
