@@ -88,7 +88,15 @@ public class AlghorimtVisualisationScene extends Scene {
         Dijkstra algorithm = new Dijkstra(n, matrix, graph.getStartVertex(), visualizer);
 
         button.addActionListener(e -> {
-            algorithm.nextStep();
+            if (algorithm.nextStep()) {
+                frame.remove(button);
+                JButton button_exit = createButton("Выйти", 20, 299, 466, 202, 84);
+                frame.getContentPane().add(button_exit);
+                SwingUtilities.updateComponentTreeUI(frame);
+                button_exit.addActionListener(a -> {
+                    frame.dispose();;
+                });
+            }
         });
     }
 }
