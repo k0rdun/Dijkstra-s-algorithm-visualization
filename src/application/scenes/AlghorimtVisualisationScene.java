@@ -5,7 +5,6 @@ import static application.screenBuilder.ScreenBuilder.createButton;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import application.Application;
 import application.dijkstra.Dijkstra;
@@ -80,7 +79,7 @@ public class AlghorimtVisualisationScene extends Scene {
         JButton button = createButton("Следующий шаг", 20, 299, 466, 202, 84);
         frame.getContentPane().add(button);
 
-        DijkstraVisualizer visualizer = new DijkstraVisualizer();
+        DijkstraVisualizer visualizer = new DijkstraVisualizer(table);
         Dijkstra algorithm = new Dijkstra(n, matrix, graph.getStartVertex(), visualizer);
 
         button.addActionListener(e -> {
