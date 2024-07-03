@@ -85,7 +85,7 @@ public class AlghorimtVisualisationScene extends Scene {
         JButton button = createButton("Следующий шаг", 20, 299, 466, 202, 84);
         frame.getContentPane().add(button);
 
-        DijkstraVisualizer visualizer = new DijkstraVisualizer(table, textArea);
+        DijkstraVisualizer visualizer = new DijkstraVisualizer(table, textArea, graph);
         Dijkstra algorithm = new Dijkstra(n, matrix, graph.getStartVertex(), visualizer);
 
         button.addActionListener(e -> {
@@ -93,7 +93,6 @@ public class AlghorimtVisualisationScene extends Scene {
                 frame.remove(button);
                 JButton button_start = createButton("Сначала", 20, 194, 466, 144, 84);
                 frame.getContentPane().add(button_start);
-                SwingUtilities.updateComponentTreeUI(frame);
                 button_start.addActionListener(a -> {
                     frame.getContentPane().removeAll();
                     this.create(frame, app);
@@ -102,11 +101,11 @@ public class AlghorimtVisualisationScene extends Scene {
 
                 JButton button_exit = createButton("Выйти", 20, 462, 466, 144, 84);
                 frame.getContentPane().add(button_exit);
-                SwingUtilities.updateComponentTreeUI(frame);
                 button_exit.addActionListener(a -> {
                     frame.dispose();
                 });
             }
+            SwingUtilities.updateComponentTreeUI(frame);
         });
     }
 }

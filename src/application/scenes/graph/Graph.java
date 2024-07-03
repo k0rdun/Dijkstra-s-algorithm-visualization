@@ -78,7 +78,7 @@ public class Graph extends JPanel {
     }
 
     public void addVertex(int x, int y, int number) {
-        vertexes.add(new Vertex(x, y, number));
+        vertexes.add(new Vertex(x, y, number, Color.DARK_GRAY));
     }
 
     public void addEdge(int number1, int number2, int weight) {
@@ -94,7 +94,7 @@ public class Graph extends JPanel {
         }
         if(vertex1 != null && vertex2 != null) {
             System.out.println("Ребро " + vertex1.getNumber() + " -> " + vertex2.getNumber() + " добавлено (" + weight + ")");
-            edges.add(new Edge(vertex1, vertex2, weight));
+            edges.add(new Edge(vertex1, vertex2, weight, Color.DARK_GRAY));
         }
     }
 
@@ -141,7 +141,7 @@ public class Graph extends JPanel {
                         int weight = Integer.parseInt(input);
                         if(weight > 0){
                             addEdge(number1, number2, weight);
-                            graph.renewFrame();
+                            SwingUtilities.updateComponentTreeUI(graph);
                         }
                     } catch(NumberFormatException exc) {}
                 }
@@ -250,6 +250,28 @@ public class Graph extends JPanel {
         selectedVertex = null;
     }
 
+    public void setEdgeColor(int number1, int number2, Color color) {
+        for(Edge edge : edges) {
+            if(edge.getStartVertex().getNumber() == number1 && edge.getEndVertex().getNumber() == number2) {
+                edge.setColor(color);
+                break;
+            }
+        }
+    }
+
+    public void setVertexColor(int number, Color color) {
+        vertexes.get(number).setColor(color);
+    }
+
+    public void resetColors() {
+        for(Edge edge : edges) {
+            edge.setColor(Color.DARK_GRAY);
+        }
+        for(Vertex vertex : vertexes) {
+            vertex.setColor(Color.DARK_GRAY);
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -266,108 +288,27 @@ public class Graph extends JPanel {
                     (int) ((2 * vertexRadius + 8) * multiplier)
             );
         }
-        // Отрисовываем ориентированные рёбра
+        // Отрисовываем ориентированные рёбра (сначала обычные)
         g2d.setStroke(new BasicStroke((float) (2.5F * multiplier)));
-        int x1, y1, x2, y2, d, h;
         for(Edge edge : edges) {
-            // Получаем координаты рёбер
-            x1 = (int) (edge.getStartVertex().getX() * multiplier);
-            y1 = (int) (edge.getStartVertex().getY() * multiplier);
-            x2 = (int) (edge.getEndVertex().getX() * multiplier);
-            y2 = (int) (edge.getEndVertex().getY() * multiplier);
-            // Отрисовываем ребро
-            g2d.drawLine(x1, y1, x2, y2);
-            // Отрисовываем направление ребра
-            d = (int) (vertexRadius * 2 * multiplier * 1.5);
-            h = (int) (vertexRadius / 2 * multiplier * 1.5);
-            // Расстояния между точками
-            int dx = x2 - x1, dy = y2 - y1;
-            // Длина стрелки
-            double D = Math.sqrt(dx * dx + dy * dy);
-            double xm = D - d, xn = xm, ym = h, yn = -h, x;
-            double sin = dy / D, cos = dx / D;
-
-            x = xm * cos - ym * sin + x1;
-            ym = xm * sin + ym * cos + y1;
-            xm = x;
-
-            x = xn * cos - yn * sin + x1;
-            yn = xn * sin + yn * cos + y1;
-            xn = x;
-
-            // Отрисовываем направление ребра
-            g2d.fillPolygon(
-                    new int[] {x2, (int) xm, (int) xn},
-                    new int[] {y2, (int) ym, (int) yn},
-                    3
-            );
+            if(edge.getColor() == Color.DARK_GRAY) {
+                edge.draw(g2d, multiplier, (int) (vertexRadius * 2 * multiplier * 1.5), (int) (vertexRadius / 2 * multiplier * 1.5));
+            }
+        }
+        // После отрисовываем разноцветные
+        for(Edge edge : edges) {
+            if(edge.getColor() != Color.DARK_GRAY) {
+                edge.draw(g2d, multiplier, (int) (vertexRadius * 2 * multiplier * 1.5), (int) (vertexRadius / 2 * multiplier * 1.5));
+            }
         }
         // Отрисовываем вес рёбер
-        g2d.setFont(new Font("Inter", Font.BOLD, (int) (18 * multiplier)));
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (17 * multiplier)));
         for(Edge edge : edges) {
-            // Получаем координаты рёбер
-            x1 = (int) (edge.getStartVertex().getX() * multiplier);
-            y1 = (int) (edge.getStartVertex().getY() * multiplier);
-            x2 = (int) (edge.getEndVertex().getX() * multiplier);
-            y2 = (int) (edge.getEndVertex().getY() * multiplier);
-            // Расстояния между точками
-            int dx = x2 - x1, dy = y2 - y1;
-            // Расстояние от вершины до числа
-            double D = Math.sqrt(dx * dx + dy * dy);
-            // Вычисляем координаты
-            d = (int) (D / 4 * 3);
-            double xm = D - d, ym, x;
-            double sin = dy / D, cos = dx / D;
-            x = xm * cos + x1;
-            ym = xm * sin + y1;
-            xm = x;
-
-            // Отрисовываем ребро
-            int textWidth = g2d.getFontMetrics().stringWidth(Integer.toString(edge.getWeight()));
-            int textHeight = (int) (14 * multiplier);
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect((int) xm, (int) ym - textHeight, textWidth, textHeight);
-            g2d.setColor(Color.BLACK);
-            g2d.drawString(
-                    Integer.toString(edge.getWeight()),
-                    (int) xm,
-                    (int) ym
-            );
+            edge.drawWeight(g2d, multiplier);
         }
-        g2d.setFont(new Font("Inter", Font.BOLD, (int) (18 * multiplier)));
+        // Отрисовываем вершины
         for(Vertex vertex : vertexes) {
-            g2d.setColor(Color.WHITE);
-            g2d.fillOval(
-                    (int) ((vertex.getX() - vertexRadius) * multiplier),
-                    (int) ((vertex.getY() - vertexRadius) * multiplier),
-                    (int) (2 * vertexRadius * multiplier),
-                    (int) (2 * vertexRadius * multiplier)
-            );
-            // Отрисовываем вершины
-            g2d.setColor(Color.DARK_GRAY);
-            g2d.drawOval(
-                    (int) ((vertex.getX() - vertexRadius) * multiplier),
-                    (int) ((vertex.getY() - vertexRadius) * multiplier),
-                    (int) (2 * vertexRadius * multiplier),
-                    (int) (2 * vertexRadius * multiplier)
-            );
-            // Нумерация вершин
-            g2d.setColor(Color.BLACK);
-            g2d.drawString(
-                    Integer.toString(vertex.getNumber()),
-                    (int) ((vertex.getX() - g2d.getFontMetrics().stringWidth(Integer.toString(vertex.getNumber())) / 2) * multiplier - 1.5),
-                    (int) ((vertex.getY() + 5) * multiplier)
-            );
+            vertex.draw(g2d, multiplier, vertexRadius);
         }
-    }
-
-    private JFrame frame;
-
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
-
-    public void renewFrame() {
-        SwingUtilities.updateComponentTreeUI(frame);
     }
 }

@@ -59,7 +59,7 @@ public class Dijkstra {
         visited[vertex] = true;
         calculate(vertex);
 
-        visualizer.printTable(n, distance, parents, visited, lastDistance);
+        visualizer.printTable(n, distance, parents, vertex, start);
 
         return false;
     }

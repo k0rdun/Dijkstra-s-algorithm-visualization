@@ -29,7 +29,6 @@ public class GraphicInputScene extends Scene {
         Graph graph = new Graph(n, matrix, 350, 198, 150);
         graph.setStartVertex(startVertex);
         graph.setVertexRadius(10);
-        graph.setFrame(frame);
         graph.setBounds(50, 50, 700, 396);
         graph.setBackground(Color.WHITE);
         graph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
