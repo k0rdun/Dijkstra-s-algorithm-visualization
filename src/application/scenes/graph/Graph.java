@@ -234,7 +234,9 @@ public class Graph extends JPanel {
             return;
         }
         // Добавление новой вершины
-        addVertex(x, y, vertexes.size());
+        if(vertexes.size() < 25) {
+            addVertex(x, y, vertexes.size());
+        }
     }
 
     public void rightMouseClick(int x, int y) {

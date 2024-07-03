@@ -64,6 +64,7 @@ public class AlghorimtVisualisationScene extends Scene {
         table.setEnabled(false);
         table.setRowHeight(44);
         table.setBackground(Color.WHITE);
+        table.setGridColor(Color.BLACK);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.getModel().setValueAt("№ вершины", 0, 0); 
         table.getModel().setValueAt("Расстояние", 1, 0);

@@ -22,7 +22,7 @@ public class Dijkstra {
         visited = new boolean[n];
 
         this.visualizer = visualizer;
-        this.visualizer.printStartInfo(this.start, distance, parents);
+        this.visualizer.printStartInfo(n, this.start, distance, parents);
     }
 
     private void calculate(int vertex){
@@ -59,7 +59,7 @@ public class Dijkstra {
         visited[vertex] = true;
         calculate(vertex);
 
-        visualizer.printTable(n, distance, parents, vertex, start);
+        visualizer.printTable(n, vertex, start, distance, parents, visited, lastDistance);
 
         return false;
     }
