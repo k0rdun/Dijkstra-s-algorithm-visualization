@@ -48,6 +48,12 @@ public class KeyboardInputScene extends Scene {
     }
 
     public Pair checkTextInput(String inputText) {
+        if(inputText.isEmpty()) {
+            Pair pair = new Pair();
+            pair.startVertex = 0;
+            pair.graph = new int[0][0];
+            return pair;
+        }
         String[] input = inputText.split("\n");
         try {
             // Считываем размер графа и стартовую вершину

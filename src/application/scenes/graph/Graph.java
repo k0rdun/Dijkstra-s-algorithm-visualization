@@ -125,6 +125,7 @@ public class Graph extends JPanel {
         textEditorScroll.setBounds(25, 25, 150, 50);
         textEditorScroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         this.add(textEditorScroll);
+        textEditor.requestFocus();
 
         Graph graph = this;
         KeyAdapter enter = new KeyAdapter() {
@@ -253,17 +254,19 @@ public class Graph extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.DARK_GRAY);
         g2d.setStroke(new BasicStroke(2.0F));
         // Отрисовываем обозначение выбранной вершины
         if(selectedVertex != null) {
             g2d.drawOval(
-                    (int) ((selectedVertex.getX() - vertexRadius - 3) * multiplier),
-                    (int) ((selectedVertex.getY() - vertexRadius - 3) * multiplier),
-                    (int) ((2 * vertexRadius + 6) * multiplier),
-                    (int) ((2 * vertexRadius + 6) * multiplier)
+                    (int) ((selectedVertex.getX() - vertexRadius - 4) * multiplier),
+                    (int) ((selectedVertex.getY() - vertexRadius - 4) * multiplier),
+                    (int) ((2 * vertexRadius + 8) * multiplier),
+                    (int) ((2 * vertexRadius + 8) * multiplier)
             );
         }
-
+        // Отрисовываем ориентированные рёбра
         g2d.setStroke(new BasicStroke(2.5F));
         int x1, y1, x2, y2, d, h;
         for(Edge edge : edges) {
@@ -299,7 +302,39 @@ public class Graph extends JPanel {
                     3
             );
         }
-        g.setFont(new Font("Inter", Font.BOLD, (int) (12 * multiplier)));
+        // Отрисовываем вес рёбер
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (14 * multiplier)));
+        for(Edge edge : edges) {
+            // Получаем координаты рёбер
+            x1 = (int) (edge.getStartVertex().getX() * multiplier);
+            y1 = (int) (edge.getStartVertex().getY() * multiplier);
+            x2 = (int) (edge.getEndVertex().getX() * multiplier);
+            y2 = (int) (edge.getEndVertex().getY() * multiplier);
+            // Расстояния между точками
+            int dx = x2 - x1, dy = y2 - y1;
+            // Расстояние от вершины до числа
+            double D = Math.sqrt(dx * dx + dy * dy);
+            // Вычисляем координаты
+            d = (int) (D / 4 * 3);
+            double xm = D - d, ym, x;
+            double sin = dy / D, cos = dx / D;
+            x = xm * cos + x1;
+            ym = xm * sin + y1;
+            xm = x;
+
+            // Отрисовываем ребро
+            int textWidth = g2d.getFontMetrics().stringWidth(Integer.toString(edge.getWeight()));
+            int textHeight = (int) (14 * multiplier);
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect((int) xm, (int) ym - textHeight, textWidth, textHeight);
+            g2d.setColor(Color.BLACK);
+            g2d.drawString(
+                    Integer.toString(edge.getWeight()),
+                    (int) xm,
+                    (int) ym
+            );
+        }
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (12 * multiplier)));
         for(Vertex vertex : vertexes) {
             g2d.setColor(Color.WHITE);
             g2d.fillOval(
@@ -309,7 +344,7 @@ public class Graph extends JPanel {
                     (int) (2 * vertexRadius * multiplier)
             );
             // Отрисовываем вершины
-            g2d.setColor(Color.BLACK);
+            g2d.setColor(Color.DARK_GRAY);
             g2d.drawOval(
                     (int) ((vertex.getX() - vertexRadius) * multiplier),
                     (int) ((vertex.getY() - vertexRadius) * multiplier),
@@ -317,6 +352,7 @@ public class Graph extends JPanel {
                     (int) (2 * vertexRadius * multiplier)
             );
             // Нумерация вершин
+            g2d.setColor(Color.BLACK);
             g2d.drawString(
                     Integer.toString(vertex.getNumber()),
                     (int) ((vertex.getX() - g2d.getFontMetrics().stringWidth(Integer.toString(vertex.getNumber())) / 2) * multiplier - 1.5),

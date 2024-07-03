@@ -95,7 +95,9 @@ public class AlghorimtVisualisationScene extends Scene {
                 frame.getContentPane().add(button_start);
                 SwingUtilities.updateComponentTreeUI(frame);
                 button_start.addActionListener(a -> {
-                    app.changeScreen(Screens.START_SCREEN);
+                    frame.getContentPane().removeAll();
+                    this.create(frame, app);
+                    SwingUtilities.updateComponentTreeUI(frame);
                 });
 
                 JButton button_exit = createButton("Выйти", 20, 462, 466, 144, 84);

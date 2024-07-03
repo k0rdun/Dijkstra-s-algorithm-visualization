@@ -7,12 +7,7 @@ public class Dijkstra {
     private final int[] distance, parents;
     private final int[][] graph;
     private final boolean[] visited;
-    private int step = 1;
     private DijkstraVisualizer visualizer;
-
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_CYAN = "\u001B[36m";
 
     public Dijkstra(int n, int[][] matrix, int start, DijkstraVisualizer visualizer){
         this.n = n;

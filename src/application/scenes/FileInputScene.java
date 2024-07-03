@@ -44,6 +44,12 @@ public class FileInputScene extends KeyboardInputScene {
     }
 
     public Pair checkFileInput(String input) {
+        if(input.isEmpty()) {
+            Pair pair = new Pair();
+            pair.startVertex = 0;
+            pair.graph = new int[0][0];
+            return pair;
+        }
         try(BufferedReader br = new BufferedReader(new FileReader(input))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
