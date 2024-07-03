@@ -41,7 +41,7 @@ public class AlghorimtVisualisationScene extends Scene {
         label_three.setBounds(50, 286, 150, 18);
         frame.getContentPane().add(label_three);
 
-
+        graph.setVertexRadius(12);
         graph.setMultiplier(0.5);
         graph.resetChangesVisualization();
         graph.setBounds(50, 50, 350, 208);
@@ -50,7 +50,7 @@ public class AlghorimtVisualisationScene extends Scene {
 
         JTextArea textArea = new JTextArea();
         textArea.setFont(new Font("Inter", Font.BOLD, 15));
-        textArea.setEnabled(false);
+        textArea.setEditable(false);
         textArea.setDisabledTextColor(Color.BLACK);
 
         JScrollPane panel_info = new JScrollPane(textArea);

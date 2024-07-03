@@ -267,7 +267,7 @@ public class Graph extends JPanel {
             );
         }
         // Отрисовываем ориентированные рёбра
-        g2d.setStroke(new BasicStroke(2.5F));
+        g2d.setStroke(new BasicStroke((float) (2.5F * multiplier)));
         int x1, y1, x2, y2, d, h;
         for(Edge edge : edges) {
             // Получаем координаты рёбер
@@ -303,7 +303,7 @@ public class Graph extends JPanel {
             );
         }
         // Отрисовываем вес рёбер
-        g2d.setFont(new Font("Inter", Font.BOLD, (int) (14 * multiplier)));
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (18 * multiplier)));
         for(Edge edge : edges) {
             // Получаем координаты рёбер
             x1 = (int) (edge.getStartVertex().getX() * multiplier);
@@ -334,7 +334,7 @@ public class Graph extends JPanel {
                     (int) ym
             );
         }
-        g2d.setFont(new Font("Inter", Font.BOLD, (int) (12 * multiplier)));
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (18 * multiplier)));
         for(Vertex vertex : vertexes) {
             g2d.setColor(Color.WHITE);
             g2d.fillOval(
