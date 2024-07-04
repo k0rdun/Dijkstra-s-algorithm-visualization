@@ -79,7 +79,6 @@ public class KeyboardInputScene extends Scene {
                     if((current < 0) || (j == i && graph[i][j] != 0)) { return null; }
                 }
             }
-            //System.out.println(Arrays.deepToString(graph));
             pair.graph = graph;
             return pair;
         } catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {

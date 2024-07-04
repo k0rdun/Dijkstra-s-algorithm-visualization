@@ -30,7 +30,6 @@ public class Application {
                 scene = new FileInputScene();
                 break;
             case GRAPHICAL_INPUT:
-                System.out.println("Графический ввод");
                 scene = new GraphicInputScene();
                 break;
             default:

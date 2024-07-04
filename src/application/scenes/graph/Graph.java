@@ -98,7 +98,6 @@ public class Graph extends JPanel {
             }
         }
         if(vertex1 != null && vertex2 != null) {
-            System.out.println("Ребро " + vertex1.getNumber() + " -> " + vertex2.getNumber() + " добавлено (" + weight + ")");
             edges.add(new Edge(vertex1, vertex2, weight, Color.DARK_GRAY));
         }
     }
@@ -110,7 +109,6 @@ public class Graph extends JPanel {
         // Проверяем, существует ли уже ребро инцидентное данным вершинам
         for(Edge edge : edges) {
             if(edge.getStartVertex().getNumber() == number1 && edge.getEndVertex().getNumber() == number2) {
-                System.out.println("Такое ребро уже существует!");
                 return;
             }
         }
@@ -137,7 +135,6 @@ public class Graph extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER && block) {
-                    System.out.println("Вес ребра введён");
                     block = false;
                     graph.remove(textEditorScroll);
                     graph.remove(label);
@@ -157,15 +154,10 @@ public class Graph extends JPanel {
     }
 
     public void deleteVertex(int number) {
-        System.out.println("Вершина №" + number + " удалена");
         vertexes.remove(number);
         for(int i = 0; i < edges.size(); i++) {
             if(edges.get(i).getStartVertex().getNumber() == number ||
                edges.get(i).getEndVertex().getNumber() == number) {
-                System.out.println(
-                        "Ребро " + edges.get(i).getStartVertex().getNumber() + " -> " +
-                                edges.get(i).getEndVertex().getNumber() + " удалено"
-                );
                 edges.remove(i);
                 i--;
             }
@@ -179,7 +171,6 @@ public class Graph extends JPanel {
         for(int i = 0; i < edges.size(); i++){
             if(edges.get(i).getStartVertex() == vertexStart &&
                edges.get(i).getEndVertex() == vertexEnd) {
-                System.out.println("Ребро " + vertexStart.getNumber() + " -> " + vertexEnd.getNumber() + " удалено");
                 edges.remove(i);
                 return;
             }
@@ -192,7 +183,6 @@ public class Graph extends JPanel {
         // Выбор вершины
         } if(selectedVertex == null) {
             selectedVertex = vertexes.get(number);
-            System.out.println("Вершина №" + number + " выбрана");
         // Удаление вершины
         } else if(selectedVertex.getNumber() == number) {
             deleteVertex(number);
@@ -233,7 +223,6 @@ public class Graph extends JPanel {
         }
         // Перемещение выбранной вершины
         if(selectedVertex != null) {
-            System.out.println("Вершина №" + selectedVertex.getNumber() + " перемещена");
             selectedVertex.move(x, y);
             selectedVertex = null;
             return;
