@@ -14,6 +14,7 @@ public class Graph extends JPanel {
     private int startVertex = 0;
     private int vertexRadius = 5;
     private double multiplier = 1.0;
+    private double textMultiplier = 1.0;
     private Vertex selectedVertex = null;
     private boolean block = false;
 
@@ -75,6 +76,10 @@ public class Graph extends JPanel {
 
     public void setMultiplier(double multiplier) {
         this.multiplier = multiplier;
+    }
+
+    public void setTextMultiplier(double multiplier) {
+        textMultiplier = multiplier;
     }
 
     public void addVertex(int x, int y, int number) {
@@ -304,7 +309,7 @@ public class Graph extends JPanel {
             }
         }
         // Отрисовываем вес рёбер
-        g2d.setFont(new Font("Inter", Font.BOLD, (int) (20 * multiplier)));
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (17 * textMultiplier)));
         for(Edge edge : edges) {
             edge.drawWeight(g2d, multiplier);
         }

@@ -64,7 +64,7 @@ public class Vertex {
         g2d.setColor(Color.BLACK);
         g2d.drawString(
                 Integer.toString(number),
-                (int) ((x - g2d.getFontMetrics().stringWidth(Integer.toString(number)) / 2) * multiplier - (2 - multiplier)),
+                (int) ((x - g2d.getFontMetrics().stringWidth(Integer.toString(number)) / 2) * multiplier - 2),
                 (int) ((y + vertexRadius / 2) * multiplier)
         );
     }

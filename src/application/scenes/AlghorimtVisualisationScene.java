@@ -43,6 +43,7 @@ public class AlghorimtVisualisationScene extends Scene {
 
         graph.setVertexRadius(16);
         graph.setMultiplier(0.5);
+        graph.setTextMultiplier(0.6);
         graph.resetChangesVisualization();
         graph.setBounds(50, 50, 350, 208);
 
