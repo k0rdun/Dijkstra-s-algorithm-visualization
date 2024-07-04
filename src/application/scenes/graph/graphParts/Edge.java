@@ -50,7 +50,7 @@ public class Edge {
         // Расстояния между точками
         int dx = x2 - x1, dy = y2 - y1;
         // Длина стрелки
-        double D = Math.sqrt(dx * dx + dy * dy);
+        double D = Math.sqrt(dx * dx + dy * dy) / multiplier;
         double xm = D - d, xn = xm, ym = h, yn = -h, x;
         double sin = dy / D, cos = dx / D;
 

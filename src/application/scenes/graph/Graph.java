@@ -304,7 +304,7 @@ public class Graph extends JPanel {
             }
         }
         // Отрисовываем вес рёбер
-        g2d.setFont(new Font("Inter", Font.BOLD, (int) (17 * multiplier)));
+        g2d.setFont(new Font("Inter", Font.BOLD, (int) (20 * multiplier)));
         for(Edge edge : edges) {
             edge.drawWeight(g2d, multiplier);
         }

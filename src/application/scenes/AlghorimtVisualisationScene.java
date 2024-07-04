@@ -41,7 +41,7 @@ public class AlghorimtVisualisationScene extends Scene {
         label_three.setBounds(50, 286, 150, 18);
         frame.getContentPane().add(label_three);
 
-        graph.setVertexRadius(12);
+        graph.setVertexRadius(16);
         graph.setMultiplier(0.5);
         graph.resetChangesVisualization();
         graph.setBounds(50, 50, 350, 208);
